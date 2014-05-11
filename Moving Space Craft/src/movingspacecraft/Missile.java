@@ -1,6 +1,7 @@
 package movingspacecraft;
 
 import java.awt.Image;
+import java.awt.Rectangle;
 import java.awt.Toolkit;
 
 import javax.swing.ImageIcon;
@@ -10,6 +11,7 @@ public class Missile {
 	private int x,y;
 	private Image mis;
 	private boolean visible;
+	private int width, height;
 	
 	private final int BOARD_WIDTH = (int) Toolkit.getDefaultToolkit().getScreenSize().getWidth();
 	private final int MISSILE_SPEED = 2;
@@ -18,6 +20,8 @@ public class Missile {
 		
 		ImageIcon ii = new ImageIcon(getClass().getResource("/Images/missile.png"));
 		mis = ii.getImage();
+		width = mis.getWidth(null);
+		height = mis.getHeight(null);
 		
 		visible = true;
 		this.x = x;
@@ -52,6 +56,14 @@ public class Missile {
 	public boolean isVisible(){
 		return visible;
 	}
+	
+	public void setVisible(boolean val){
+		visible = val;
+	}
+	
+	public Rectangle getBounds() {
+        return new Rectangle(x, y, width, height);
+    }
 	
 	public void move(){
 		x += MISSILE_SPEED;

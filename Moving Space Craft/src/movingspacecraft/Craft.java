@@ -1,7 +1,6 @@
 package movingspacecraft;
 
-import java.awt.Image;
-import java.awt.Toolkit;
+import java.awt.*;
 import java.awt.event.KeyEvent;
 import java.util.ArrayList;
 
@@ -17,13 +16,19 @@ public class Craft {
 	private Image image;
 	private AudioClip bombSound;
 	private ArrayList missiles;
-    private final int CRAFT_SIZE = 50;
     private final int BOARD_WIDTH  = (int) Toolkit.getDefaultToolkit().getScreenSize().getWidth();
     private final int BOARD_HEIGHT = (int) Toolkit.getDefaultToolkit().getScreenSize().getHeight();
+    
+    private boolean visible;
+    private int width;
+    private int height;
 	
 	public Craft() {
 		ImageIcon ii = new ImageIcon(getClass().getResource(craft));
 		image = ii.getImage();
+		width = image.getWidth(null);
+		height = image.getHeight(null);
+		visible = true;
 		
 		missiles = new ArrayList();
 		x = 0;
@@ -48,6 +53,42 @@ public class Craft {
 		return dx;
 	}
 	
+	public boolean isVisible() {
+		return visible;
+	}
+
+
+
+	public void setVisible(boolean visible) {
+		this.visible = visible;
+	}
+
+
+
+	public int getWidth() {
+		return width;
+	}
+
+
+
+	public void setWidth(int width) {
+		this.width = width;
+	}
+
+
+
+	public int getHeight() {
+		return height;
+	}
+
+
+
+	public void setHeight(int height) {
+		this.height = height;
+	}
+
+
+
 	public ArrayList getMissiles() {
 		return missiles;
 	}
@@ -104,8 +145,22 @@ public class Craft {
 		this.image = image;
 	}
 	
+	public AudioClip getBombSound() {
+		return bombSound;
+	}
+
+
+
+	public void setBombSound(AudioClip bombSound) {
+		this.bombSound = bombSound;
+	}
+	
 	/*getter and setter description end*/
 	
+	
+
+
+
 	public void move(){
 		if((dx>0 && x<BOARD_WIDTH-90) || (dx<0 && x>0))x += dx;
 		if((dy>0 && y<BOARD_HEIGHT-90) || (dy<0 && y>-5))y += dy;
@@ -135,8 +190,12 @@ int key = e.getKeyCode();
 	public void fire() {
 		bombSound.stop();
 		bombSound.play();
-	    missiles.add(new Missile(x + CRAFT_SIZE, y + CRAFT_SIZE/2));
+	    missiles.add(new Missile(x + width, y + height/2-8));
 	}
+	
+	public Rectangle getBounds() {
+        return new Rectangle(x, y, width, height);
+    }
 }
 
 

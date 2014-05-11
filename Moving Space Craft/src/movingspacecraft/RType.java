@@ -15,20 +15,12 @@ public class RType extends JFrame{
 		add(new Board());
 		
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setSize(  ((int) Toolkit.getDefaultToolkit().getScreenSize().getWidth()) , ((int) Toolkit.getDefaultToolkit().getScreenSize().getHeight()) );
-		
+		setExtendedState(JFrame.MAXIMIZED_BOTH);
+	    setUndecorated(true);
+	    
         setLocationRelativeTo(null);
-        setTitle("Space Invader(By Shuvo)");
         setResizable(false);
         setVisible(true);
-        
-        try{
-		    backSound = Applet.newAudioClip(this.getClass().getResource("/Sounds/a.wav"));
-		    backSound.loop();
-		}
-		catch(Exception e){
-			e.printStackTrace();
-		}
 	}
 
 	/**
